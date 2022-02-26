@@ -97,4 +97,14 @@ public class JobScheduling1 extends BackTracking<Integer> {
             for (int i = 0; i <= k; i++) finalX[i] = x[i];
         }
     }
+
+    public void report() {
+        for (int i = 0; i < finalX.length; i++) {
+            if (finalX[i] == 1) {
+                System.out.println(executionTimes[i] + " -> " + profits[i]);
+            }
+        }
+        System.out.println("Total Execution Times = " + finalExecutionTimes + " Total Profit = " + finalProfit);
+        System.out.println("Number of nodes generated: " + numberOfNodes);
+    }
 }
