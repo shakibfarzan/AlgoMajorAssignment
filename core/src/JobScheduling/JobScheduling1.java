@@ -9,7 +9,7 @@ public class JobScheduling1 extends BackTracking<Integer> {
     private int[] deadlines;
     private int[] executionTimes;
     private int[] finalX;
-    private int finalProfit;
+    public int finalProfit;
     private int finalExecutionTimes;
     private int[] currentNodeProfit;
     private int[] currentNodeExecutionTimes;
