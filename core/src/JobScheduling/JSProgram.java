@@ -1,3 +1,5 @@
+package JobScheduling;
+
 public class JSProgram {
     public static void main(String[] args) {
         int[] deadlines = {1, 12, 4, 3, 6};
