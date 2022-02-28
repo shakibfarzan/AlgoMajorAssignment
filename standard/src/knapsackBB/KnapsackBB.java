@@ -56,6 +56,9 @@ public class KnapsackBB<T extends Collection<Node>> {
 
         // if item is not selected
         int[] indices = new int[lastNode.itemsIndices.length];
+//        for (int i = 0; i < indices.length; i++) {
+//            indices[i] = lastNode.itemsIndices[i];
+//        }
         System.arraycopy(lastNode.itemsIndices, 0, indices, 0, indices.length);
         indices[lastNode.index + 1] = -1;
         double c = 0;
@@ -72,10 +75,6 @@ public class KnapsackBB<T extends Collection<Node>> {
                 }
             }
         }
-
-//        for (int i = 0; i < indices.length; i++) {
-//            indices[i] = lastNode.itemsIndices[i];
-//        }
         Node secondNode = new Node(-c, -u, lastNode.index + 1, indices, lastNode.currentTotalWeight);
         if (secondNode.U < upper) upper = secondNode.U;
         nodes.add(secondNode);
