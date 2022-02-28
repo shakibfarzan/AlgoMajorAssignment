@@ -48,7 +48,7 @@ public class KnapsackBB<T extends Collection<Node>> {
         // if item is selected
         Node firstNode = new Node(lastNode.c, lastNode.U, lastNode.index + 1,
                 lastNode.itemsIndices, lastNode.currentTotalWeight + weights[lastNode.index + 1]);
-        if (!bound(firstNode)){
+        if (!bound(firstNode)) {
             nodes.add(firstNode);
             numberOfNodes++;
         }
@@ -58,16 +58,16 @@ public class KnapsackBB<T extends Collection<Node>> {
         int[] indices = new int[lastNode.itemsIndices.length];
         System.arraycopy(lastNode.itemsIndices, 0, indices, 0, indices.length);
         indices[lastNode.index + 1] = -1;
-        double cX = 0;
-        int uX = 0, weight = 0;
+        double c = 0;
+        int u = 0, weight = 0;
         for (int i = 0; i < lastNode.itemsIndices.length; i++) {
             if (indices[i] != -1) {
                 weight += weights[i];
                 if (weight <= capacity) {
-                    cX += profits[i];
-                    uX += profits[i];
+                    c += profits[i];
+                    u += profits[i];
                 } else {
-                    cX += (1 - (double)(weight - capacity) / weights[i]) * profits[i];
+                    c += (1 - (double) (weight - capacity) / weights[i]) * profits[i];
                     break;
                 }
             }
@@ -76,8 +76,8 @@ public class KnapsackBB<T extends Collection<Node>> {
 //        for (int i = 0; i < indices.length; i++) {
 //            indices[i] = lastNode.itemsIndices[i];
 //        }
-        Node secondNode = new Node(-cX, -uX, lastNode.index + 1, indices, lastNode.currentTotalWeight);
-        if(secondNode.U < upper) upper = secondNode.U;
+        Node secondNode = new Node(-c, -u, lastNode.index + 1, indices, lastNode.currentTotalWeight);
+        if (secondNode.U < upper) upper = secondNode.U;
         nodes.add(secondNode);
         numberOfNodes++;
     }
@@ -87,35 +87,32 @@ public class KnapsackBB<T extends Collection<Node>> {
     }
 
     protected void initRoot() {
-        double cX = 0;
-        int uX = 0, weight = 0;
+        double c = 0;
+        int u = 0, weight = 0;
         for (int i = 0; i < weights.length; i++) {
             weight += weights[i];
             if (weight <= capacity) {
-                cX += profits[i];
-                uX += profits[i];
+                c += profits[i];
+                u += profits[i];
             } else {
-                cX += (1 - (double)(weight - capacity) / weights[i]) * profits[i];
+                c += (1 - (double) (weight - capacity) / weights[i]) * profits[i];
                 break;
             }
         }
-        Node root = new Node(-cX, -uX,-1, new int[weights.length],0);
+        Node root = new Node(-c, -u, -1, new int[weights.length], 0);
         nodes.add(root);
         upper = root.U;
     }
 
-    protected boolean isSolution(Node node){
+    protected boolean isSolution(Node node) {
         return node.index == weights.length - 1;
     }
-    protected int solve(){
-        while (!nodes.isEmpty()){
+
+    protected int solve() {
+        while (!nodes.isEmpty()) {
             Node currentNode = getLastNode();
-            if (!bound(currentNode)){
-                if (!isSolution(currentNode)){
-                    addNodes(currentNode);
-                }else{
-                    upper = currentNode.U;
-                }
+            if (!bound(currentNode) && !isSolution(currentNode)) {
+                addNodes(currentNode);
             }
         }
         return -upper;
