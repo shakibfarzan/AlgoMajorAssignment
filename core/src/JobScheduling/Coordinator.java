@@ -29,19 +29,19 @@ public class Coordinator {
                 int[] deadlines = generateArray(num, 15, 30);
                 int[] executionTimes = generateArray(num, 1, 10);
 
-                JobScheduling1 js1 = new JobScheduling1(profits, deadlines, executionTimes);
-                JobScheduling2 js2 = new JobScheduling2(profits, deadlines, executionTimes);
-                JobScheduling3 js3 = new JobScheduling3(profits, deadlines, executionTimes);
 
                 long begin = getTime();
+                JobScheduling1 js1 = new JobScheduling1(profits, deadlines, executionTimes);
                 js1.solve();
                 long finish = getTime();
                 writer.write((finish - begin) + ",");
                 begin = getTime();
+                JobScheduling2 js2 = new JobScheduling2(profits, deadlines, executionTimes);
                 js2.solve();
                 finish = getTime();
                 writer.write((finish - begin) + ",");
                 begin = getTime();
+                JobScheduling3 js3 = new JobScheduling3(profits, deadlines, executionTimes);
                 js3.solve();
                 finish = getTime();
                 writer.write((finish - begin) + ",");
