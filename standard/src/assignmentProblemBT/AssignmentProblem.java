@@ -1,3 +1,5 @@
+package assignmentProblemBT;
+
 import java.util.ArrayList;
 
 public class AssignmentProblem extends BackTrackingOptimization<Integer> {

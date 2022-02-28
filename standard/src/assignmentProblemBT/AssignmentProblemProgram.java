@@ -1,3 +1,5 @@
+package assignmentProblemBT;
+
 public class AssignmentProblemProgram {
     public static void main(String[] args) {
 //        0 = infinity
