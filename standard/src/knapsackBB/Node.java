@@ -1,12 +1,12 @@
 package knapsackBB;
 
 public class Node {
-    int c;
+    double c;
     int U;
     int index;
     int[] itemsIndices;
     int currentTotalWeight;
-    public Node(int c, int U, int index, int[] itemsIndices, int currentTotalWeight){
+    public Node(double c, int U, int index, int[] itemsIndices, int currentTotalWeight){
         this.c = c;
         this.U = U;
         this.index = index;

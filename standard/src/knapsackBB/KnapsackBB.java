@@ -8,6 +8,7 @@ public class KnapsackBB<T extends Collection<Node>> {
     protected int[] weights;
     protected int[] profits;
     protected int capacity;
+    protected int numberOfNodes = 1;
 
     public KnapsackBB(int[] w, int[] p, int capacity, T nodes) {
         weights = w;
@@ -25,7 +26,7 @@ public class KnapsackBB<T extends Collection<Node>> {
             data[i][1] = profits[i];
             data[i][2] = (double) weights[i] / profits[i];
         }
-        Arrays.sort(data, Comparator.comparingDouble(a -> -a[2]));
+        Arrays.sort(data, Comparator.comparingDouble(a -> a[2]));
         for (int i = 0; i < weights.length; i++) {
             weights[i] = (int) data[i][0];
             profits[i] = (int) data[i][1];
@@ -49,53 +50,75 @@ public class KnapsackBB<T extends Collection<Node>> {
                 lastNode.itemsIndices, lastNode.currentTotalWeight + weights[lastNode.index + 1]);
         if (!bound(firstNode)){
             nodes.add(firstNode);
+            numberOfNodes++;
         }
 
 
         // if item is not selected
-        int cX = 0, uX = 0, weight = 0;
+        int[] indices = new int[lastNode.itemsIndices.length];
+        System.arraycopy(lastNode.itemsIndices, 0, indices, 0, indices.length);
+        indices[lastNode.index + 1] = -1;
+        double cX = 0;
+        int uX = 0, weight = 0;
         for (int i = 0; i < lastNode.itemsIndices.length; i++) {
-            if (lastNode.itemsIndices[i] != -1) {
+            if (indices[i] != -1) {
                 weight += weights[i];
                 if (weight <= capacity) {
                     cX += profits[i];
                     uX += profits[i];
                 } else {
-                    cX += (1 - (weight - capacity) / weights[i]) * profits[i];
+                    cX += (1 - (double)(weight - capacity) / weights[i]) * profits[i];
                     break;
                 }
             }
         }
-        int[] indices = new int[lastNode.itemsIndices.length];
+
 //        for (int i = 0; i < indices.length; i++) {
 //            indices[i] = lastNode.itemsIndices[i];
 //        }
-        System.arraycopy(lastNode.itemsIndices, 0, indices, 0, indices.length);
-        indices[lastNode.index + 1] = -1;
         Node secondNode = new Node(-cX, -uX, lastNode.index + 1, indices, lastNode.currentTotalWeight);
         if(secondNode.U < upper) upper = secondNode.U;
         nodes.add(secondNode);
+        numberOfNodes++;
     }
 
     protected boolean bound(Node node) {
-        return (node.currentTotalWeight > capacity) || (node.c > upper);
+        return (node.currentTotalWeight > capacity) || (node.c >= upper);
     }
 
     protected void initRoot() {
-        int cX = 0, uX = 0, weight = 0;
+        double cX = 0;
+        int uX = 0, weight = 0;
         for (int i = 0; i < weights.length; i++) {
             weight += weights[i];
             if (weight <= capacity) {
                 cX += profits[i];
                 uX += profits[i];
             } else {
-                cX += (1 - (weight - capacity) / weights[i]) * profits[i];
+                cX += (1 - (double)(weight - capacity) / weights[i]) * profits[i];
                 break;
             }
         }
         Node root = new Node(-cX, -uX,-1, new int[weights.length],0);
         nodes.add(root);
         upper = root.U;
+    }
+
+    protected boolean isSolution(Node node){
+        return node.index == weights.length - 1;
+    }
+    protected int solve(){
+        while (!nodes.isEmpty()){
+            Node currentNode = getLastNode();
+            if (!bound(currentNode)){
+                if (!isSolution(currentNode)){
+                    addNodes(currentNode);
+                }else{
+                    upper = currentNode.U;
+                }
+            }
+        }
+        return -upper;
     }
 
 }
