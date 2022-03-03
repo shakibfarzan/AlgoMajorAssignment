@@ -17,7 +17,6 @@ public class AssignmentProblem extends BackTrackingOptimization<Integer> {
 	protected double cost(int k) {
 		currentNodeProfit[k] = currentNodeProfit[k - 1] + G[x[k - 1]][x[k]];
 		return -currentNodeProfit[k];
-
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class AssignmentProblem extends BackTrackingOptimization<Integer> {
 		k++;
 		ArrayList<Integer> nextValues = new ArrayList<Integer>();
 
-		for (int val = 1; val < x.length; val++) {
+		for (int val = 0; val < x.length; val++) {
 			if (G[x[k - 1]][val] != 0) {
 				int i;
 				for (i = 0; i <= k - 1; i++) {
@@ -43,7 +42,7 @@ public class AssignmentProblem extends BackTrackingOptimization<Integer> {
 			}
 		}
 
-		return (Integer[]) nextValues.toArray(new Integer[nextValues.size()]);
+		return nextValues.toArray(new Integer[0]);
 	}
 
 	@Override

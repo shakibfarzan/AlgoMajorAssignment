@@ -1,5 +1,3 @@
-package assignmentProblemBB;
-
 import java.util.ArrayList;
 
 class CycleNode

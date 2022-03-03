@@ -3,18 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignmentProblemBB;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 
 /**
  *
@@ -28,6 +18,7 @@ enum Strategy
     LIFO,
     LC
 }
+
 class Node<T> implements Comparable<Node<T>>
 {
     public int depth; // in case if node depth is important
@@ -121,7 +112,7 @@ public abstract class BranchAndBound<T>
         while(!nodesQueue.isEmpty())// while there is any live nodes
         {
             node=nodesQueue.removeFirst(); // FIFO
-            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX));  //test  
+//            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX));  //test
             if (!isKilled(node))// if node is alive
             {
                 numberOfNodes++; // if the node is aliave
@@ -159,7 +150,7 @@ public abstract class BranchAndBound<T>
         while(!nodesQueue.isEmpty())// while there is any live nodes
         {
             node=nodesQueue.removeFirst(); // LIFO
-            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX)); //test
+//            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX)); //test
             if (!isKilled(node))// if node is alive
             {
                 numberOfNodes++; // if the node is aliave
@@ -197,7 +188,7 @@ public abstract class BranchAndBound<T>
         while(!nodesLCqueue.isEmpty())// while there is any live nodes
         {
             node=nodesLCqueue.remove(); // LIFO
-            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX)); //test    
+//            System.out.println("Depth: "+node.depth+ " > "+node.x+" U(x)= "+String.format("%.2f",node.uX)+" C(x)= "+String.format("%.2f",node.cX)); //test
             if (!isKilled(node))// if node is alive
             {
                 numberOfNodes++; // if the node is aliave
@@ -231,11 +222,11 @@ public abstract class BranchAndBound<T>
             case FIFO:
                return solveFIFO(root);
             case LIFO:
-                return solveFIFO(root);
+                return solveLIFO(root);
             case LC:
-                return solveLC(root);       
+                return solveLC(root);
         }
-        return null;        
+        return null;
     }
 
 }
