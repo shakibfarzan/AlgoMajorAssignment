@@ -2,7 +2,6 @@ package assignmentProblemBT;
 
 public class AssignmentProblemProgram {
     public static void main(String[] args) {
-//        0 = infinity
         double[][] C = new double[][]{
 
                 {82, 83, 69, 92},
@@ -19,14 +18,14 @@ public class AssignmentProblemProgram {
                 {9, 2, 6, 2, 0}};
 
         double[][] G = new double[][]{
-                {0, 6, 0, 3, 6},
-                {6, 0, 3, 4, 2},
-                {0, 3, 0, 1, 6},
-                {3, 4, 1, 0, 3},
-                {6, 2, 6, 3, 0}};
+                {0, 6, 0, 3},
+                {6, 0, 3, 4},
+                {0, 3, 1, 1},
+                {3, 4, 1, 4},
+                {6, 2, 6, 1}};
 
         double[][] T = new double[][]{
-                {0, 9, 10, 30, 16},
+                {2, 9, 10, 30, 16},
                 {6, 0, 3, 14, 2},
                 {0, 13, 0, 1, 16},
                 {13, 14, 1, 0, 13},
