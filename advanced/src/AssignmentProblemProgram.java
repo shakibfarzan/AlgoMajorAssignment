@@ -1,5 +1,3 @@
-package assignmentProblemBT;
-
 public class AssignmentProblemProgram {
     public static void main(String[] args) {
         double[][] C = new double[][]{
@@ -33,17 +31,16 @@ public class AssignmentProblemProgram {
                 {6, 2, 6, 3, 7}
         };
 
-        AssignmentProblem assignment = new AssignmentProblem(C);
-        assignment.solve();
-        assignment.print();
-        AssignmentProblem assignment2 = new AssignmentProblem(D);
-        assignment2.solve();
-        assignment2.print();
-        AssignmentProblem assignment3 = new AssignmentProblem(G);
-        assignment3.solve();
-        assignment3.print();
-        AssignmentProblem assignment4 = new AssignmentProblem(T);
-        assignment4.solve();
-        assignment4.print();
+        test(C);
+        test(G);
+        test(D);
+        test(T);
+    }
+
+    private static void test(double[][] d) {
+        AssignmentProblemBB assignment2 = new AssignmentProblemBB(d);
+        assignment2.solve(Strategy.LC);
+        assignment2.solve(Strategy.FIFO);
+        assignment2.solve(Strategy.LIFO);
     }
 }
